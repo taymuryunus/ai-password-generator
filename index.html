@@ -7,10 +7,18 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #0f172a;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Turkey.svg') no-repeat center center fixed;
+      background-size: cover;
       color: #f8fafc;
       text-align: center;
       padding: 40px;
+      backdrop-filter: brightness(0.3);
+    }
+    .container {
+      background-color: rgba(15, 23, 42, 0.85);
+      padding: 30px;
+      border-radius: 12px;
+      display: inline-block;
     }
     input, button {
       padding: 10px;
@@ -32,19 +40,31 @@
       font-size: 20px;
       word-wrap: break-word;
     }
+    footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #94a3b8;
+    }
   </style>
 </head>
 <body>
 
-  <h1>🔐 Güçlü Şifre Oluşturucu</h1>
-  <p>Yapay zekâ destekli, karmaşık ve benzersiz şifreler üretin.</p>
+  <div class="container">
+    <h1>🔐 Güçlü Şifre Oluşturucu</h1>
+    <p>Yapay zekâ destekli, karmaşık ve güvenli şifreler üretin.</p>
 
-  <label>Şifre uzunluğu:</label>
-  <input type="number" id="length" min="6" max="64" value="16"><br>
-  
-  <button onclick="generatePassword()">Şifre Oluştur</button>
+    <label>Şifre uzunluğu:</label>
+    <input type="number" id="length" min="6" max="64" value="16"><br>
+    
+    <button onclick="generatePassword()">Şifre Oluştur</button>
+    <button onclick="copyPassword()">📋 Kopyala</button>
 
-  <div class="output" id="passwordBox">Burada şifreniz görünecek</div>
+    <div class="output" id="passwordBox">Burada şifreniz görünecek</div>
+
+    <footer>
+      👤 Geliştirici: <strong>Yunus Taymur</strong>
+    </footer>
+  </div>
 
   <script>
     function generatePassword() {
@@ -58,7 +78,16 @@
         password += chars[randomIndex];
       }
 
-      document.getElementById("passwordBox").innerText = "🔑 " + password;
+      document.getElementById("passwordBox").innerText = password;
+    }
+
+    function copyPassword() {
+      const password = document.getElementById("passwordBox").innerText;
+      if (password && password !== "Burada şifreniz görünecek") {
+        navigator.clipboard.writeText(password)
+          .then(() => alert("🔒 Şifre panoya kopyalandı!"))
+          .catch(err => alert("Kopyalama başarısız: " + err));
+      }
     }
   </script>
 
