@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Destekli Şifre Oluşturucu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+      text-align: center;
+      padding: 40px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+    }
+    button {
+      background-color: #10b981;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #059669;
+    }
+    .output {
+      margin-top: 20px;
+      font-size: 20px;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔐 Güçlü Şifre Oluşturucu</h1>
+  <p>Yapay zekâ destekli, karmaşık ve benzersiz şifreler üretin.</p>
+
+  <label>Şifre uzunluğu:</label>
+  <input type="number" id="length" min="6" max="64" value="16"><br>
+  
+  <button onclick="generatePassword()">Şifre Oluştur</button>
+
+  <div class="output" id="passwordBox">Burada şifreniz görünecek</div>
+
+  <script>
+    function generatePassword() {
+      const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+[]{}|;:,.<>?";
+      let length = parseInt(document.getElementById("length").value);
+      let password = "";
+      let randomness = window.crypto || window.msCrypto;
+
+      for (let i = 0; i < length; i++) {
+        let randomIndex = randomness.getRandomValues(new Uint32Array(1))[0] % chars.length;
+        password += chars[randomIndex];
+      }
+
+      document.getElementById("passwordBox").innerText = "🔑 " + password;
+    }
+  </script>
+
+</body>
+</html>
